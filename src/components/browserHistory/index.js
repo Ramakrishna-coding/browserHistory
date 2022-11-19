@@ -81,6 +81,21 @@ export default class browserHistory Component{
     state = {
         historyList: initialHistoryList
     }
+
+    getSearchResults = (event) => {
+        const searchTerm = event.target.value
+        const filteredItems = initialHistoryList.filter(each => each.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        ) 
+        this.setState({historyList: filteredItems})
+        console.log(filteredItems)
+    }
+
+    deleteItem=(id) =>{
+        const {historyList} = this.state
+        const filteredList = historyList.filter(each => each.id !== id)
+        this.setState({historyList: filteredList})
+
+    }
     render(){
         const {historyList} = this.state
         return(
@@ -91,12 +106,13 @@ export default class browserHistory Component{
             <div className="searchBox">
                 <img src="https://assets.ccbp.in/frontend/react-js/search-img.png"
                 alt="search" />
-                <input type="search" placeholder="Search history" />
+                <input type="search" placeholder="Search history" onChange={this.getSearchResults} />
             </div>
             </div>
             <div className="search-results-container">
-            {historyList.length<1 ? <div><p>There is no history to show</p></div> : <ul>
-                {historyList.map(each => ( <HistoryItem key={each.id} HistoryItem={each} />
+            {historyList.length<1 ? <div className="noItems"><p>There is no history to show</p></div> : <ul>
+                {historyList.map(each => ( <HistoryItem key={each.id} HistoryItem={each}
+                deleteItem={this.deleteItem} />
                 ))}
             </ul>
                 )}
