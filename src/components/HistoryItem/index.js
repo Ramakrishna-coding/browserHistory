@@ -1,31 +1,32 @@
-import React from 'react'
-
 import './index.css'
 
 const HistoryItem = props => {
-  const {historyItem, deleteItem} = this.props
-  const {id, timeAccessed, logoUrl, title, domainUrl} = historyItem
+  const {historyDetails, onDeleteHistory} = props
+  const {id, timeAccessed, logoUrl, title, domainUrl} = historyDetails
 
-  const handleDelete = () => {
-    deleteItem(id)
+  const onDeleteItem = () => {
+    onDeleteHistory(id)
   }
 
   return (
-    <li>
-      <div className="list-container">
-        <p>{timeAccessed}</p>
-        <img src={logoUrl} alt="domain logo" />
-        <p>{title}</p>
-        <p>{domainUrl}</p>
+    <li className="history">
+      <p className="time-stamp">{timeAccessed}</p>
+      <div className="domain-details-container">
+        <img src={logoUrl} alt="domain logo" className="domain-logo" />
+        <p className="title">{title}</p>
+        <p className="domain-url">{domainUrl}</p>
       </div>
-      <div>
-        <button onClick={handleDelete}>
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/delete-img.png"
-            alt="delete"
-          />
-        </button>
-      </div>
+      <button
+        type="button"
+        className="delete-button"
+        testid="delete"
+        onClick={onDeleteItem}
+      >
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/delete-img.png"
+          alt="delete"
+        />
+      </button>
     </li>
   )
 }
