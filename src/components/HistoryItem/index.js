@@ -19,7 +19,6 @@ const HistoryItem = props => {
       <button
         type="button"
         className="delete-button"
-        testid="delete"
         onClick={onDeleteItem}
       >
         <img
